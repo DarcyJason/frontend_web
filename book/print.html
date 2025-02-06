@@ -1,0 +1,763 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>frontend_web</title>
+        <meta name="robots" content="noindex">
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="favicon.svg">
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        <link rel="stylesheet" href="css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="toc.js"></script>
+    </head>
+    <body>
+    <div id="body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="toc.html"></iframe>
+            </noscript>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">frontend_web</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="html"><a class="header" href="#html">HTML</a></h1>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="标题"><a class="header" href="#标题">标题</a></h1>
+<pre><code class="language-html">&lt;h1&gt;标题一&lt;/h1&gt;
+</code></pre>
+<pre><code class="language-html">&lt;h2&gt;标题二&lt;/h2&gt;
+</code></pre>
+<pre><code class="language-html">&lt;h3&gt;标题三&lt;/h3&gt;
+</code></pre>
+<pre><code class="language-html">&lt;h4&gt;标题四&lt;/h4&gt;
+</code></pre>
+<pre><code class="language-html">&lt;h5&gt;标题五&lt;/h5&gt;
+</code></pre>
+<pre><code class="language-html">&lt;h6&gt;标题6&lt;/h6&gt;
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="段落"><a class="header" href="#段落">段落</a></h1>
+<pre><code class="language-html">&lt;p&gt;
+  不会
+  自动
+  格式化
+  的
+  段落
+&lt;/p&gt;
+</code></pre>
+<pre><code class="language-html">&lt;pre&gt;
+  自动
+  格式化
+  的
+  段落
+&lt;/pre&gt;
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="换行和分割线"><a class="header" href="#换行和分割线">换行和分割线</a></h1>
+<h2 id="换行"><a class="header" href="#换行">换行</a></h2>
+<pre><code class="language-html">&lt;br&gt;
+</code></pre>
+<h2 id="分割线"><a class="header" href="#分割线">分割线</a></h2>
+<pre><code class="language-html">&lt;hr&gt;
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="字体样式"><a class="header" href="#字体样式">字体样式</a></h1>
+<pre><code class="language-html">&lt;b&gt;加粗字体&lt;/b&gt;
+</code></pre>
+<pre><code class="language-html">&lt;strong&gt;加粗字体&lt;/strong&gt;
+</code></pre>
+<pre><code class="language-html">&lt;i&gt;斜体&lt;/i&gt;
+</code></pre>
+<pre><code class="language-html">&lt;em&gt;斜体&lt;/em&gt;
+</code></pre>
+<pre><code class="language-html">&lt;mark&gt;标记文本&lt;/mark&gt;
+</code></pre>
+<pre><code class="language-html">&lt;del&gt;文本中间加横线&lt;/del&gt;
+</code></pre>
+<pre><code class="language-html">&lt;ins&gt;文本下划线&lt;/ins&gt;
+</code></pre>
+<pre><code class="language-html">&lt;small&gt;小写字体&lt;/small&gt;
+</code></pre>
+<pre><code class="language-html">&lt;sub&gt;右下角下标&lt;/sub&gt;
+</code></pre>
+<pre><code class="language-html">&lt;sup&gt;右上角上标&lt;/sup&gt;
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="html-color"><a class="header" href="#html-color">HTML Color</a></h1>
+<pre><code class="language-html">&lt;h1 style="color:blue"&gt;This is my heading&lt;/h1&gt;
+</code></pre>
+<pre><code class="language-html">&lt;h1 style="color:blue; background:red;"&gt;This is my heading&lt;/h1&gt;
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="html注释"><a class="header" href="#html注释">HTML注释</a></h1>
+<pre><code class="language-html">&lt;!-- 这是单行注释 --&gt;
+</code></pre>
+<pre><code class="language-html">&lt;!-- 
+  这是多行注释
+--&gt;
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="html-链接"><a class="header" href="#html-链接">HTML 链接</a></h1>
+<pre><code class="language-html">&lt;a href="https://google.com"&gt;在本标签页跳转到该页面&lt;/a&gt;
+</code></pre>
+<pre><code class="language-html">&lt;a href="https://google.com" target="_blank"&gt;建立新的标签页,在新的标签页跳转到该页面&lt;/a&gt;
+</code></pre>
+<pre><code class="language-html">&lt;a href="/"&gt;跳转到相对路径或绝对路径中&lt;/a&gt;
+</code></pre>
+<pre><code class="language-html">&lt;a href="mailto:sample@google.com"&gt;发送邮件给某个邮箱地址&lt;/a&gt;
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="title和favicon"><a class="header" href="#title和favicon">title和favicon</a></h1>
+<h2 id="title"><a class="header" href="#title">title</a></h2>
+<pre><code class="language-html">&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+  &lt;title&gt;标题&lt;/title&gt;
+&lt;/html&gt;
+</code></pre>
+<h2 id="favicon"><a class="header" href="#favicon">favicon</a></h2>
+<pre><code class="language-html">&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+  &lt;link rel="icon" href="https://sample.png"&gt;
+&lt;/html&gt;
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="html-表格"><a class="header" href="#html-表格">HTML 表格</a></h1>
+<h2 id="普通表格"><a class="header" href="#普通表格">普通表格</a></h2>
+<pre><code class="language-html">&lt;table&gt;
+  &lt;!-- tr代表表格中的某行 --&gt;
+  &lt;tr&gt;
+    &lt;!-- th代表表格中某列标题 --&gt;
+    &lt;th&gt;Name&lt;/th&gt;
+    &lt;th&gt;Age&lt;/th&gt;
+    &lt;th&gt;Class&lt;/th&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;!-- td代表表格中某块数据, 请将td中的数据与th相对应 --&gt;
+    &lt;td&gt;Tony&lt;/td&gt;
+    &lt;td&gt;18&lt;/td&gt;
+    &lt;td&gt;Information Security&lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td&gt;John&lt;/td&gt;
+    &lt;td&gt;20&lt;/td&gt;
+    &lt;td&gt;Computer Science&lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/table&gt;
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="html-列表"><a class="header" href="#html-列表">HTML 列表</a></h1>
+<h2 id="有序列表"><a class="header" href="#有序列表">有序列表</a></h2>
+<pre><code class="language-html">&lt;ol&gt;
+  &lt;li&gt;Name 1&lt;/li&gt;
+  &lt;li&gt;Name 2&lt;/li&gt;
+  &lt;li&gt;Name 3&lt;/li&gt;
+&lt;/ol&gt;
+</code></pre>
+<h2 id="无序列表"><a class="header" href="#无序列表">无序列表</a></h2>
+<pre><code class="language-html">&lt;ul&gt;
+  &lt;li&gt;Name 1&lt;/li&gt;
+  &lt;li&gt;Name 2&lt;/li&gt;
+  &lt;li&gt;Name 3&lt;/li&gt;
+&lt;/ul&gt;
+</code></pre>
+<h2 id="description列表"><a class="header" href="#description列表">description列表</a></h2>
+<pre><code class="language-html">&lt;dl&gt;
+  &lt;dt&gt;Name 1&lt;/dt&gt;
+  &lt;dd&gt;* This is a first name&lt;/dd&gt;
+  &lt;dt&gt;Name 2&lt;/dt&gt;
+  &lt;dd&gt;* This is a second name&lt;/dd&gt;
+&lt;/dl&gt;
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="块元素和内联元素"><a class="header" href="#块元素和内联元素">块元素和内联元素</a></h1>
+<h2 id="块元素"><a class="header" href="#块元素">块元素</a></h2>
+<pre><code class="language-html">&lt;div&gt;&lt;/div&gt;
+</code></pre>
+<h2 id="内联元素"><a class="header" href="#内联元素">内联元素</a></h2>
+<pre><code class="language-html">&lt;p&gt;This is a &lt;b&gt;paragraph&lt;/b&gt;&lt;/p&gt;
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="iframe"><a class="header" href="#iframe">iframe</a></h1>
+<pre><code class="language-html">&lt;!-- 用于将其他网页的内容内嵌至其中, 某些网页可能因路由规则无法显示 --&gt;
+&lt;iframe src="https://google.com" height="100%" width="100%" style="border: none;"&gt;&lt;/iframe&gt;
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="符号"><a class="header" href="#符号">符号</a></h1>
+<pre><code class="language-html">&lt;!-- 这是一个欧元符号 --&gt;
+&amp;euro;
+&lt;!-- 这是一个版权符号 --&gt;
+&amp;#169;
+&lt;!-- 这是一个注册商标符号 --&gt;
+&amp;#174;
+&lt;!-- 这是一个黑桃符号 --&gt;
+&amp;#9824;
+&lt;!-- 这是一个黑梅花符号 --&gt;
+&amp;#9827;
+&lt;!-- 这是一个黑心符号 --&gt;
+&amp;#9829;
+&lt;!-- 这是一个黑方块符号 --&gt;
+&amp;#9830;
+&lt;!-- 这是一个TM商标符号 --&gt;
+&amp;#8482;
+&lt;!-- 其余的特殊符号可以在google上搜索HTML symbols即可 --&gt;
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="html-表单"><a class="header" href="#html-表单">HTML 表单</a></h1>
+<pre><code class="language-html">&lt;form&gt;
+  &lt;!-- 收集文本 --&gt;
+  &lt;input type="text"&gt;
+  &lt;!-- 收集数字 --&gt;
+  &lt;input type="number"&gt;
+&lt;/form&gt;
+</code></pre>
+<pre><code class="language-html">&lt;form&gt;
+  &lt;!-- for属性值需要与input中的name相同, 即可完成绑定 --&gt;
+  &lt;label for="username"&gt;Name&lt;/label&gt;
+  &lt;br&gt;
+  &lt;!-- name属性值是为了将输入的内容存储起来成为一个变量, 便于后端获取输入框的值 --&gt;
+  &lt;input type="text" name="username" id="username"&gt;
+&lt;/form&gt;
+</code></pre>
+<h2 id="复选框"><a class="header" href="#复选框">复选框</a></h2>
+<pre><code class="language-html">&lt;form&gt;
+  &lt;label for="username"&gt;Tony&lt;/label&gt;
+  &lt;br&gt;
+  &lt;input type="checkbox" name="username" id="username" value="tony"&gt;
+  &lt;br&gt;
+  &lt;label for="username2"&gt;Tim&lt;/label&gt;
+  &lt;br&gt;
+  &lt;input type="checkbox" name="username2" id="username2" value="tim"&gt;
+  &lt;br&gt;
+&lt;/form&gt;
+</code></pre>
+<h2 id="单选框"><a class="header" href="#单选框">单选框</a></h2>
+<pre><code class="language-html">&lt;form&gt;
+  &lt;label for="username"&gt;Tony&lt;/label&gt;
+  &lt;input type="radio" name="username" id="username" value="tony"&gt;
+  &lt;br&gt;
+  &lt;label for="username2"&gt;Tim&lt;/label&gt;
+  &lt;input type="radio" name="username2" id="username2" value="tim"&gt;
+&lt;/form&gt;
+</code></pre>
+<h2 id="提交"><a class="header" href="#提交">提交</a></h2>
+<pre><code class="language-html">&lt;!-- form表单中的action属性值即为表单提交到的位置, method属性值决定了表单的方法, 如果不指定method的属性值, 默认采用GET方法 --&gt;
+&lt;form action="https://sample.com/api/form" method="POST"&gt;
+  &lt;label for="username"&gt;Tony&lt;/label&gt;
+  &lt;input type="radio" name="username" id="username" value="tony"&gt;
+  &lt;br&gt;
+  &lt;label for="username2"&gt;Tim&lt;/label&gt;
+  &lt;input type="radio" name="username2" id="username2" value="tim"&gt;
+  &lt;br&gt;
+  &lt;input type="submit" value="Send"&gt;
+&lt;/form&gt;
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="css"><a class="header" href="#css">CSS</a></h1>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="引入css文件至html中"><a class="header" href="#引入css文件至html中">引入CSS文件至HTML中</a></h1>
+<h2 id="indexhtml"><a class="header" href="#indexhtml">index.html</a></h2>
+<pre><code class="language-html">&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+  &lt;head&gt;
+    &lt;title&gt;Test&lt;/title&gt;
+    &lt;link rel="stylesheet" href="styles.css"&gt;
+  &lt;/head&gt;
+&lt;/html&gt;
+</code></pre>
+<h2 id="stylescss"><a class="header" href="#stylescss">styles.css</a></h2>
+<pre><code class="language-css">html, body {
+  width: 100%;
+  height:100%;
+}
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="css-注释"><a class="header" href="#css-注释">CSS 注释</a></h1>
+<pre><code class="language-css">/* 这是单行注释 */
+</code></pre>
+<pre><code class="language-css">/* 
+  这是多行注释
+*/
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="css-选择器"><a class="header" href="#css-选择器">CSS 选择器</a></h1>
+<h2 id="id-选择器"><a class="header" href="#id-选择器">id 选择器</a></h2>
+<pre><code class="language-css">#id {
+  color: red;
+}
+</code></pre>
+<h2 id="class-选择器"><a class="header" href="#class-选择器">class 选择器</a></h2>
+<pre><code class="language-css">.class {
+  color: red;
+}
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="背景"><a class="header" href="#背景">背景</a></h1>
+<pre><code class="language-css">body {
+  /* 背景颜色 */
+  background-color: red;
+  /* 不透明度, 值域是0 - 1, 并且值越低, 透明度越高 */
+  opacity: 0.4;
+  /* 背景图片 */
+  background-image: url("https://sample.com/sample.jpg");
+  /* 背景位置 */
+  background-position: right top;
+}
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="margins"><a class="header" href="#margins">Margins</a></h1>
+<p>Margins即外边距, 简单来说就是给元素的上下左右加空格</p>
+<pre><code class="language-css">p {
+  /* 给p元素左边加空格, 其余的属性还有margin-top, margin-right, margin-bottom */
+  margin-left: 20px;
+  /* 简化设置margin, 顺序是上、右、下、左 */
+  margin: 50px 50px 50px 50px;
+  /* 更简化设置margin, 但必须满足上下margin值相同、左右margin值也相同, 顺序是上下、左右 */
+  margin: 50px 50px;
+  /* 最简化设置margin, 但必须满足上下左右的margin值全相同 */
+  margin: 50px;
+}
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="边框"><a class="header" href="#边框">边框</a></h1>
+<pre><code class="language-css">p {
+  /* 点虚线边框 */
+  border-style: dotted;
+  /* 实线边框 */
+  border-style: solid;
+  /* 细实线边框 */
+  border-style: groove;
+  /* 短横虚线边框 */
+  border-style: dashed;
+  /* 双横线边框 */
+  border-style: double;
+  /* 浅色细实线边框 */
+  border-style: ridge;
+  /* 向外突出的边框 */
+  border-style: outset;
+  /* 向内凹陷的边框 */
+  border-style: inset;
+  /* 无边框 */
+  border-style: none;
+  /* 默认有边框的元素可以使用hidden来隐藏边框 */
+  border-style: hidden;
+  /* 上右下左分别设置边框样式 */
+  border-style: dashed double dotted solid;
+  /* 边框宽度, 其值也可以为medium, thick */
+  border-width: 10px;
+  /* 边框宽度, 上右下左依次设置 */
+  border-width: 10px 20px 10px 20px;
+  /* 简写边框宽度, 但上下相同, 左右也相同 */
+  border-width: 20px 20px;
+  /* 边框颜色 */
+  border-color: red;
+  /* 边框颜色, 上右下左依次设置 */
+  borer-color: purple green yellow red;
+  /* 分别设置边框样式 */
+  border-top-style: dashed;
+  border-right-style: dotted;
+  border-bottom-style: dotted;
+  border-left-style: dashed;
+  /* 快速设置单边边框 */
+  border-left: 10px dashed purple;
+  /* 快速设置全边框 */
+  border: 10px dashed red;
+  /* 圆边框 */
+  border-radius: 5px;
+}
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="padding"><a class="header" href="#padding">Padding</a></h1>
+<p>padding即行内间距, 也就是在border内添加空白</p>
+<pre><code class="language-css">p {
+  border: 3px solid purple;
+  border-radius: 20px;
+  /* 在border中设置空白 */
+  padding-top: 20px;
+  padding-right: 20px;
+  padding-bottom: 20px;
+  padding-left: 20px;
+  /* 简写padding, 顺序是上右下左 */
+  padding: 20px 20px 20px 20x;
+  /* 更简写padding, 但上下必须相同, 左右也必须相同, 顺序是上下、左右 */
+  padding: 20px 20px;
+  /* 最简写padding, 但上下左右必须相同 */
+  padding: 20px;
+}
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="text"><a class="header" href="#text">Text</a></h1>
+<pre><code class="language-css">p {
+  /* 文本出现的位置, 文本默认是left, 其值可以为left, right, center justify(自动调整单词之间的间距, 使得左边和右边都对齐) */
+  text-align: right;
+  /* 仅调整段落的最后一行 */
+  text-align-last: center;
+  /* 文本的高度对齐 */
+  vertical-align: center;
+  /* 文本下横线 */
+  text-decoration-line: underline;
+  /* 文本中间横线 */
+  text-decoration-line: line-through;
+  /* 文本顶部一条横线 */
+  text-decoration-line: overline;
+  /* 三条文本上的线条可以任意同时存在 */
+  text-decoration-line: underline line-through overline;
+  /* 文本上的线条设置颜色 */
+  text-decoration-color: green;
+  /* 文本上的线条设置样式 */
+  text-decoration-style: dashed;
+  /* 调整文本上线条的粗细 */
+  text-decoration-thickness: 10px;
+  /* 简写上面的内容, 按照line, color, style, thickness的顺序写 */
+  text-decoration: overline purple solid 6px;
+  /* 去除所有的文本样式, 例如去除a标签的下横线等 */
+  text-decoration: none;
+  /* 将文本转换成全小写 */
+  text-transform: lowercase;
+  /* 将文本转换成全大写 */
+  text-transform: uppercase;
+  /* 将文本中每个单词的首字母大写 */
+  text-transform: capitalize;
+  /* 文本缩进 */
+  text-indent: 20px;
+  /* 调整文本中每个字母的间距 */
+  letter-spacing: 20px;
+}
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="字体"><a class="header" href="#字体">字体</a></h1>
+<pre><code class="language-css">p {
+  /* 设置字体, 可以去google上搜索 */
+  font-family: Arial, Helvetica, sans-serif;
+  /* 设置字体样式 */
+  font-style: italic;
+  /* 设置字体粗细 */
+  font-weight: bold;
+  /* 设置字体大小 */
+  font-size: 20px;
+}
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="icon"><a class="header" href="#icon">icon</a></h1>
+<h2 id="indexhtml-1"><a class="header" href="#indexhtml-1">index.html</a></h2>
+<pre><code class="language-html">&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+  &lt;head&gt;
+    &lt;link rel="stylesheet" href="styles.css"&gt;
+    &lt;link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons"&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;i class="material-icon"&gt;cloud&lt;/i&gt;
+    &lt;i class="material-icon"&gt;computer&lt;/i&gt;
+  &lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="css-表格"><a class="header" href="#css-表格">CSS 表格</a></h1>
+<h2 id="indexhtml-2"><a class="header" href="#indexhtml-2">index.html</a></h2>
+<pre><code class="language-html">&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+  &lt;head&gt;
+    &lt;title&gt;Test&lt;/title&gt;
+    &lt;link rel="stylesheet" href="styles.css"&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;table&gt;
+      &lt;tr&gt;
+        &lt;th&gt;Name&lt;/th&gt;
+        &lt;th&gt;Age&lt;/th&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+        &lt;td&gt;Tony&lt;/td&gt;
+        &lt;td&gt;18&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+        &lt;td&gt;Tim&lt;/td&gt;
+        &lt;td&gt;20&lt;/td&gt;
+      &lt;/tr&gt;
+    &lt;/table&gt;
+  &lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+<h2 id="stylescss-1"><a class="header" href="#stylescss-1">styles.css</a></h2>
+<pre><code class="language-css">table,th, td {
+  /* 为表格增加边框 */
+  border: 2px solid;
+  /* 将表格的默认双横线边框设置为单实线 */
+  border-collapse: collapse;
+  /* 将表格隐藏 */
+  visibility: hidden;
+  /* 移除表格 */
+  display: none;
+}
+/* 当鼠标悬停在某行上, 显示高亮 */
+tr:hover {
+  background-color: blue;
+}
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="combinators"><a class="header" href="#combinators">Combinators</a></h1>
+<h2 id="indexhtml-3"><a class="header" href="#indexhtml-3">index.html</a></h2>
+<pre><code class="language-html">&lt;h1&gt;
+  Hi
+  &lt;b&gt;Hey&lt;/b&gt;
+  &lt;p&gt;
+    &lt;b&gt;What's up&lt;/b&gt;
+  &lt;/p&gt;
+&lt;/h1&gt;
+&lt;b&gt;What?&lt;/b&gt;
+&lt;b&gt;What2?&lt;/b&gt;
+</code></pre>
+<h2 id="stylescss-2"><a class="header" href="#stylescss-2">styles.css</a></h2>
+<pre><code class="language-css">/* 子代选择器 */
+/* 只有Hey会变为红色, 因为这么写只会寻找其子标签而不会寻找其孙标签*/
+h1 &gt; b {
+  color: red;
+}
+/* 相邻兄弟选择器 */
+/* 只有What?会变为红色, 因为选择的是与h1相邻的b标签, 所以What?会变红*/
+h1 + b {
+  color: red;
+}
+/* 通用兄弟选择器 */
+/* What?和What2?都会变为红色, 因为选中的是与h1同级的后续b标签
+h1 ~ b {
+  color: red;
+}
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="下拉菜单"><a class="header" href="#下拉菜单">下拉菜单</a></h1>
+<h2 id="indexhtml-4"><a class="header" href="#indexhtml-4">index.html</a></h2>
+<pre><code class="language-html">&lt;div class="dropdown"&gt;
+  &lt;button class="dropdownbutton"&gt;&lt;/button&gt;
+  &lt;div class="dropdown-menu"&gt;
+    &lt;a href="#"&gt;List&lt;/a&gt;
+    &lt;a href="#"&gt;List&lt;/a&gt;
+    &lt;a href="#"&gt;List&lt;/a&gt;
+    &lt;a href="#"&gt;List&lt;/a&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+</code></pre>
+<h2 id="stylescss-3"><a class="header" href="#stylescss-3">styles.css</a></h2>
+<pre><code class="language-css">.dropdownbutton {
+  background-color: blue;
+  color: white;
+  padding: 13px;
+  font-size: 16px;
+  border: none;
+  /* 将鼠标设置为一只小手 */
+  cursor: pointer;
+}
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-menu {
+  display: none;
+  position: absolute;
+  background-color: light-blue;
+  min-width: 150px;
+}
+
+.dropdown-menu a {
+  color: black;
+  padding: 11px 15px;
+  text-decoration: none;
+  display: block;
+}
+
+.dropdown-menu a:hover {
+  background-color: white;
+}
+
+.dropdown:hover .dropdown-menu {
+  display: block;
+}
+
+.dropdown:hover .dropdownbutton {
+  background-color: grey;
+}
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="属性选择器"><a class="header" href="#属性选择器">属性选择器</a></h1>
+<h2 id="indexhtml-5"><a class="header" href="#indexhtml-5">index.html</a></h2>
+<pre><code class="language-html">&lt;div class="test"&gt;
+  &lt;p&gt;Hi&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class="test2"&gt;
+  &lt;p&gt;Hello&lt;/p&gt;
+&lt;/div&gt;
+</code></pre>
+<h2 id="stylescss-4"><a class="header" href="#stylescss-4">styles.css</a></h2>
+<pre><code class="language-css">/* 只有Hi会变红, 因为选中的是类名为test的div中的文本 */
+div[class="test"] {
+  color: red;
+}
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="javascript"><a class="header" href="#javascript">JavaScript</a></h1>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+
+            </nav>
+
+        </div>
+
+        <!-- Livereload script (if served using the cli tool) -->
+        <script>
+            const wsProtocol = location.protocol === 'https:' ? 'wss:' : 'ws:';
+            const wsAddress = wsProtocol + "//" + location.host + "/" + "__livereload";
+            const socket = new WebSocket(wsAddress);
+            socket.onmessage = function (event) {
+                if (event.data === "reload") {
+                    socket.close();
+                    location.reload();
+                }
+            };
+
+            window.onbeforeunload = function() {
+                socket.close();
+            }
+        </script>
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="elasticlunr.min.js"></script>
+        <script src="mark.min.js"></script>
+        <script src="searcher.js"></script>
+
+        <script src="clipboard.min.js"></script>
+        <script src="highlight.js"></script>
+        <script src="book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+        <script>
+        window.addEventListener('load', function() {
+            window.setTimeout(window.print, 100);
+        });
+        </script>
+
+    </div>
+    </body>
+</html>
