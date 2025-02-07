@@ -700,6 +700,156 @@ div[class="test"] {
 }
 </code></pre>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="javascript"><a class="header" href="#javascript">JavaScript</a></h1>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="变量"><a class="header" href="#变量">变量</a></h1>
+<pre><code class="language-javascript">let num = 10
+let name = "John"
+let names = ["Tom", "Jerry", "Jack"]
+let flag = true
+let flag = false
+// id选择
+const button1 = document.querySelector("#button1")
+// class选择
+const button2 = document.querySelector(".button2")
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="触发事件"><a class="header" href="#触发事件">触发事件</a></h1>
+<pre><code class="language-javascript">const button1 = document.querySelector("#button1")
+button1.addEventListener("click", goStore)
+
+/* 鼠标事件
+click 单击元素时触发
+dbclick 双击元素时触发
+mousedown 按下鼠标按钮时触发
+mouseup 释放鼠标按钮时触发
+mousemove 鼠标移动时触发
+mouseenter 鼠标移入元素(不会冒泡)
+mouseleave 鼠标移出元素(不会冒泡)
+mouseover 鼠标移入元素(会冒泡)
+mouseout 鼠标移出元素(会冒泡)
+contextmenu 右键点击时触发
+wheel/mousewheel 鼠标滚轮滚动时触发
+*/
+
+/* 键盘事件
+keydown 按键按下(支持长按重复触发)
+keypress (已废弃)过去用于获取字符输入
+keyup 按键释放时触发
+*/
+
+/* 输入和表单事件
+input 用户输入时触发(适用于&lt;input&gt;、&lt;textarea&gt;)
+change 表单值改变并失去焦点时触发(适用于&lt;select&gt;、&lt;input&gt;)
+focus 元素获得焦点时触发
+blur 元素失去焦点时触发
+submit 表单提交时触发(&lt;form&gt;)
+reset 表单重置时触发
+*/
+
+/* 触摸事件(适用于移动端)
+touchstart 手指触摸屏幕时触发
+touchmove 手指在屏幕上滑动时触发
+touchend 手指离开屏幕时触发
+touchcancel 系统取消触摸事件(如来电打断)
+*/
+
+/* 页面和DOM事件
+DOMContentLoaded HTML加载和DOM解析完成时触发(比load早)
+load 页面或资源(图片、css、JS)完全加载完成时触发
+beforeunload 页面即将关闭时触发
+resize 浏览器窗口大小变化时触发
+scroll 页面滚动时触发
+*/
+
+/* 剪切板事件
+copy 用户复制时触发
+cut 用户剪切内容时触发
+paste 用户粘贴内容时触发
+*/
+
+/* 拖放事件
+drag 拖动元素时触发
+dragstart 开始拖动时触发
+dragend 拖动结束时触发
+dragover 被拖动元素悬停在目标区域时触发
+drop 拖动元素放下时触发
+*/
+
+/* 其他常见事件
+animationstart css动画开始时触发
+animationend css动画结束时触发
+transitionend css过渡动画结束时触发
+error 资源加载失败时(如&lt;img&gt;)触发
+*/
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="函数"><a class="header" href="#函数">函数</a></h1>
+<h2 id="传统函数"><a class="header" href="#传统函数">传统函数</a></h2>
+<pre><code class="language-javascript">function add(a, b) {
+  return a + b;
+}
+console.log(add(2, 3));
+</code></pre>
+<h2 id="函数表达式"><a class="header" href="#函数表达式">函数表达式</a></h2>
+<pre><code class="language-javascript">const subtract = function (a, b) {
+  return a - b;
+};
+console.log(subtract(5, 2))
+</code></pre>
+<h2 id="箭头函数"><a class="header" href="#箭头函数">箭头函数</a></h2>
+<pre><code class="language-javascript">const multiply = (a, b) =&gt; {
+  return a * b;
+};
+console.log(multiply(3, 4));
+
+// 如果函数只有一行可以简写
+const divide = (a, b) =&gt; a / b;
+console.log(divide(8, 2));
+</code></pre>
+<h2 id="立即执行函数"><a class="header" href="#立即执行函数">立即执行函数</a></h2>
+<pre><code class="language-javascript">(function () {
+  console.log("立即执行");
+})();
+
+//简化版
+(() =&gt; {
+  console.log("立即执行");
+})();
+</code></pre>
+<h2 id="构造函数"><a class="header" href="#构造函数">构造函数</a></h2>
+<pre><code class="language-javascript">const add = new Function("a", "b", "return a + b");
+console.log(add(2, 3));
+</code></pre>
+<h2 id="对象方法"><a class="header" href="#对象方法">对象方法</a></h2>
+<pre><code class="language-javascript">// 对象方法中不要使用箭头函数
+const obj = {
+    name: "Tom",
+    sayHello: function () {
+        return `Hello, I'm ${this.name}`;
+    }
+};
+console.log(obj.sayHello());
+</code></pre>
+<h2 id="类中的方法"><a class="header" href="#类中的方法">类中的方法</a></h2>
+<pre><code class="language-javascript">class Person {
+    constructor(name) {
+        this.name = name;
+    }
+    sayHello() {
+        return `Hello, I'm ${this.name}`;
+    }
+}
+const p = new Person("Alice");
+console.log(p.sayHello());
+</code></pre>
+<h2 id="生成器函数"><a class="header" href="#生成器函数">生成器函数</a></h2>
+<pre><code class="language-javascript">function* generator() {
+    yield 1;
+    yield 2;
+    yield 3;
+}
+const gen = generator();
+console.log(gen.next().value); // 1
+console.log(gen.next().value); // 2
+console.log(gen.next().value); // 3
+</code></pre>
 
                     </main>
 

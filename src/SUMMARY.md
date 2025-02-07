@@ -31,3 +31,6 @@
   - [下拉菜单](./css_drop_menu.md)
   - [属性选择器](./css_attribute_selectors.md)
 - [JavaScript](./javascript.md)
+  - [变量](./js_variable.md)
+  - [触发事件](./js_event.md)
+  - [函数](./js_function.md)
