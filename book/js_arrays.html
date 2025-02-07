@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>函数 - frontend_web</title>
+        <title>数组 - frontend_web</title>
 
 
         <!-- Custom HTML head -->
@@ -152,86 +152,64 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1 id="函数"><a class="header" href="#函数">函数</a></h1>
-<h2 id="传统函数"><a class="header" href="#传统函数">传统函数</a></h2>
-<pre><code class="language-javascript">function add(a, b) {
-  return a + b;
-}
-console.log(add(2, 3));
-</code></pre>
-<h2 id="函数表达式"><a class="header" href="#函数表达式">函数表达式</a></h2>
-<pre><code class="language-javascript">const subtract = function (a, b) {
-  return a - b;
-};
-console.log(subtract(5, 2))
-</code></pre>
-<h2 id="箭头函数"><a class="header" href="#箭头函数">箭头函数</a></h2>
-<pre><code class="language-javascript">const multiply = (a, b) =&gt; {
-  return a * b;
-};
-console.log(multiply(3, 4));
+                        <h1 id="数组"><a class="header" href="#数组">数组</a></h1>
+<pre><code class="language-javascript">const mylist = [];
+const numberArray = [2, 4, 6, 8];
+const stringArray = ["eat", "work", "sleep"];
+const newData = [
+  { task1: "exercise" },
+  [1, 2, 3],
+  function hello() {
+    console.log("hello");
+  },
+];
+console.log(myArray[0]); // "h"
 
-// 如果函数只有一行可以简写
-const divide = (a, b) =&gt; a / b;
-console.log(divide(8, 2));
-</code></pre>
-<h2 id="立即执行函数"><a class="header" href="#立即执行函数">立即执行函数</a></h2>
-<pre><code class="language-javascript">(function () {
-  console.log("立即执行");
-})();
+// 数组中常用的方法
+// concat() 合并数组
+// includes() 检查数组中是否包含该元素
+// push() 在数组尾部添加一个元素, 返回数组的新长度
+// unshift() 在数组头部添加一个元素, 返回数组的新长度
+// pop() 弹出数组中最后一个元素, 返回新的数组
+// shift() 弹出数组中第一个元素, 返回新的数组
+// sort() 将数组中的元素进行排序
+// slice() 选择数组中的一部分作为新的数组并返回新的数组
+// splice() 移除或替换已存在的元素或添加未存在的元素
+// reverse() 反转数组
 
-//简化版
-(() =&gt; {
-  console.log("立即执行");
-})();
-</code></pre>
-<h2 id="构造函数"><a class="header" href="#构造函数">构造函数</a></h2>
-<pre><code class="language-javascript">const add = new Function("a", "b", "return a + b");
-console.log(add(2, 3));
-</code></pre>
-<h2 id="对象方法"><a class="header" href="#对象方法">对象方法</a></h2>
-<pre><code class="language-javascript">// 对象方法中不要使用箭头函数
-const obj = {
-    name: "Tom",
-    sayHello: function () {
-        return `Hello, I'm ${this.name}`;
-    }
-};
-console.log(obj.sayHello());
-</code></pre>
-<h2 id="类中的方法"><a class="header" href="#类中的方法">类中的方法</a></h2>
-<pre><code class="language-javascript">class Person {
-    constructor(name) {
-        this.name = name;
-    }
-    sayHello() {
-        return `Hello, I'm ${this.name}`;
-    }
-}
-const p = new Person("Alice");
-console.log(p.sayHello());
-</code></pre>
-<h2 id="生成器函数"><a class="header" href="#生成器函数">生成器函数</a></h2>
-<pre><code class="language-javascript">function* generator() {
-    yield 1;
-    yield 2;
-    yield 3;
-}
-const gen = generator();
-console.log(gen.next().value); // 1
-console.log(gen.next().value); // 2
-console.log(gen.next().value); // 3
+const fruits = [
+  "apples",
+  "pomegranate",
+  "mango",
+  "strawberries",
+  "pineapple",
+  "grapefruit",
+];
+console.log(fruits);
+fruits.push("banana");
+fruits.pop();
+fruits.shift();
+fruits.unshift("orange");
+console.log(fruits)
+
+let pl = ["JavaScript", "Golang", "Python", "php"];
+let numbers = [3, 5, 2, 4, 1];
+console.log(pl.includes("Golang"));
+console.log(pl.join("-"));
+console.log(pl.reverse());
+console.log(pl.slice(0, 3));
+console.log(pl.sort());
 </code></pre>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-                            <a rel="prev" href="js_event.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="js_logic.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <i class="fa fa-angle-left"></i>
                             </a>
 
-                            <a rel="next prefetch" href="js_compare_operators.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next prefetch" href="js_objects.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <i class="fa fa-angle-right"></i>
                             </a>
 
@@ -241,11 +219,11 @@ console.log(gen.next().value); // 3
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                    <a rel="prev" href="js_event.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="js_logic.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <i class="fa fa-angle-left"></i>
                     </a>
 
-                    <a rel="next prefetch" href="js_compare_operators.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next prefetch" href="js_objects.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <i class="fa fa-angle-right"></i>
                     </a>
             </nav>

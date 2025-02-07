@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>函数 - frontend_web</title>
+        <title>类型转换 - frontend_web</title>
 
 
         <!-- Custom HTML head -->
@@ -152,86 +152,29 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1 id="函数"><a class="header" href="#函数">函数</a></h1>
-<h2 id="传统函数"><a class="header" href="#传统函数">传统函数</a></h2>
-<pre><code class="language-javascript">function add(a, b) {
-  return a + b;
-}
-console.log(add(2, 3));
-</code></pre>
-<h2 id="函数表达式"><a class="header" href="#函数表达式">函数表达式</a></h2>
-<pre><code class="language-javascript">const subtract = function (a, b) {
-  return a - b;
-};
-console.log(subtract(5, 2))
-</code></pre>
-<h2 id="箭头函数"><a class="header" href="#箭头函数">箭头函数</a></h2>
-<pre><code class="language-javascript">const multiply = (a, b) =&gt; {
-  return a * b;
-};
-console.log(multiply(3, 4));
+                        <h1 id="类型转换"><a class="header" href="#类型转换">类型转换</a></h1>
+<pre><code class="language-javascript">let money = "100";
+money = parseInt(money);
+console.log(money);
 
-// 如果函数只有一行可以简写
-const divide = (a, b) =&gt; a / b;
-console.log(divide(8, 2));
-</code></pre>
-<h2 id="立即执行函数"><a class="header" href="#立即执行函数">立即执行函数</a></h2>
-<pre><code class="language-javascript">(function () {
-  console.log("立即执行");
-})();
+let money = 100;
+money = money.toString();
+console.log(money);
 
-//简化版
-(() =&gt; {
-  console.log("立即执行");
-})();
-</code></pre>
-<h2 id="构造函数"><a class="header" href="#构造函数">构造函数</a></h2>
-<pre><code class="language-javascript">const add = new Function("a", "b", "return a + b");
-console.log(add(2, 3));
-</code></pre>
-<h2 id="对象方法"><a class="header" href="#对象方法">对象方法</a></h2>
-<pre><code class="language-javascript">// 对象方法中不要使用箭头函数
-const obj = {
-    name: "Tom",
-    sayHello: function () {
-        return `Hello, I'm ${this.name}`;
-    }
-};
-console.log(obj.sayHello());
-</code></pre>
-<h2 id="类中的方法"><a class="header" href="#类中的方法">类中的方法</a></h2>
-<pre><code class="language-javascript">class Person {
-    constructor(name) {
-        this.name = name;
-    }
-    sayHello() {
-        return `Hello, I'm ${this.name}`;
-    }
-}
-const p = new Person("Alice");
-console.log(p.sayHello());
-</code></pre>
-<h2 id="生成器函数"><a class="header" href="#生成器函数">生成器函数</a></h2>
-<pre><code class="language-javascript">function* generator() {
-    yield 1;
-    yield 2;
-    yield 3;
-}
-const gen = generator();
-console.log(gen.next().value); // 1
-console.log(gen.next().value); // 2
-console.log(gen.next().value); // 3
+let money = "99.5";
+money = parseFloat(money);
+console.log(money);
 </code></pre>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-                            <a rel="prev" href="js_event.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="js_compare_operators.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <i class="fa fa-angle-left"></i>
                             </a>
 
-                            <a rel="next prefetch" href="js_compare_operators.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next prefetch" href="js_if.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <i class="fa fa-angle-right"></i>
                             </a>
 
@@ -241,11 +184,11 @@ console.log(gen.next().value); // 3
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                    <a rel="prev" href="js_event.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="js_compare_operators.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <i class="fa fa-angle-left"></i>
                     </a>
 
-                    <a rel="next prefetch" href="js_compare_operators.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next prefetch" href="js_if.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <i class="fa fa-angle-right"></i>
                     </a>
             </nav>
